@@ -11,7 +11,8 @@ sys.path.insert(0, str(ROOT))
 (ROOT / 'instance').mkdir(exist_ok=True)
 TEST_DATA = tempfile.TemporaryDirectory(dir=ROOT / 'instance')
 os.environ['GAPFINDER_DATA_DIR'] = TEST_DATA.name
-import app as module
+with patch.dict(os.environ, {'DATABASE_URL': '', 'POSTGRES_URL': '', 'VERCEL': ''}):
+    import app as module
 from pypdf import PdfWriter
 from pypdf.generic import DictionaryObject, NameObject, DecodedStreamObject
 import rag
@@ -119,6 +120,22 @@ class AppTests(unittest.TestCase):
         self.assertEqual(self.upload('bad.pdf',b'not a pdf').status_code,400)
         blank=PdfWriter();blank.add_blank_page(width=600,height=800);out=io.BytesIO();blank.write(out)
         self.assertIn('OCR',self.upload('scan.pdf',out.getvalue()).json['error'])
+
+    def test_chunked_upload_indexes_only_after_final_part(self):
+        transfer = 'a' * 36
+
+        def send(part, content, last):
+            return self.client.post('/api/upload/part', data={
+                'transfer': transfer, 'part': str(part), 'last': str(last),
+                'kind': 'notes', 'file': (io.BytesIO(content), 'chapter.md'),
+            }, headers={'X-CSRF-Token': self.csrf})
+
+        self.assertEqual(send(0, b'Machine learning ', 0).status_code, 200)
+        self.assertEqual(self.state()['documents'], [])
+        self.assertEqual(send(2, b'out of order', 1).status_code, 400)
+        self.assertEqual(send(1, b'finds patterns in data.', 1).status_code, 200)
+        self.assertEqual([doc['name'] for doc in self.state()['documents']], ['chapter.md'])
+        self.assertEqual(send(1, b'duplicate final part', 1).status_code, 400)
 
     def test_explanations_grounding_and_ai_contract(self):
         self.load()
