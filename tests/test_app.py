@@ -121,21 +121,14 @@ class AppTests(unittest.TestCase):
         blank=PdfWriter();blank.add_blank_page(width=600,height=800);out=io.BytesIO();blank.write(out)
         self.assertIn('OCR',self.upload('scan.pdf',out.getvalue()).json['error'])
 
-    def test_chunked_upload_indexes_only_after_final_part(self):
-        transfer = 'a' * 36
-
-        def send(part, content, last):
-            return self.client.post('/api/upload/part', data={
-                'transfer': transfer, 'part': str(part), 'last': str(last),
-                'kind': 'notes', 'file': (io.BytesIO(content), 'chapter.md'),
-            }, headers={'X-CSRF-Token': self.csrf})
-
-        self.assertEqual(send(0, b'Machine learning ', 0).status_code, 200)
+    def test_upload_size_limit(self):
+        content = b'Machine learning notes' + b' ' * (100 * 1024 - 22)
+        self.assertEqual(len(content), 100 * 1024)
+        rejected = self.upload('too-large.txt', content + b' ')
+        self.assertEqual(rejected.status_code, 413)
+        self.assertIn('100 KB', rejected.json['error'])
         self.assertEqual(self.state()['documents'], [])
-        self.assertEqual(send(2, b'out of order', 1).status_code, 400)
-        self.assertEqual(send(1, b'finds patterns in data.', 1).status_code, 200)
-        self.assertEqual([doc['name'] for doc in self.state()['documents']], ['chapter.md'])
-        self.assertEqual(send(1, b'duplicate final part', 1).status_code, 400)
+        self.assertEqual(self.upload('at-limit.txt', content).status_code, 200)
 
     def test_explanations_grounding_and_ai_contract(self):
         self.load()
