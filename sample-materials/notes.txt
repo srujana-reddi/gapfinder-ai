@@ -1,0 +1,17 @@
+Photosynthesis
+Photosynthesis converts light energy into chemical energy stored in glucose. Chlorophyll pigments absorb light in the chloroplasts. The light-dependent reactions occur in the thylakoid membranes and produce ATP and NADPH. Water is split during these reactions, releasing oxygen. The Calvin cycle occurs in the stroma and uses carbon dioxide, ATP and NADPH to form carbohydrates.
+
+Cellular respiration
+Cellular respiration releases usable energy from glucose through a sequence of reactions. Glycolysis occurs in the cytoplasm and breaks glucose into pyruvate. The Krebs cycle occurs in the mitochondrial matrix. The electron transport chain in the inner mitochondrial membrane establishes a proton gradient. ATP synthase uses this gradient to produce ATP. Oxygen acts as the final electron acceptor.
+
+Cell division
+Cell division enables growth, tissue repair and reproduction. Mitosis produces two daughter cells with the same chromosome number as the parent cell. DNA replication occurs during the S phase before mitosis. During metaphase, chromosomes align at the cell equator. During anaphase, sister chromatids separate. Meiosis involves two divisions and produces four haploid cells with genetic variation.
+
+Genetics
+Genetics studies inheritance and variation in living organisms. A gene is a segment of DNA that contributes to a functional product. Alleles are alternative versions of a gene. A dominant allele is expressed in a heterozygous individual, whereas a recessive allele is masked in that condition. Genotype refers to an organism's allele combination; phenotype refers to observable characteristics. A monohybrid cross between two heterozygous parents yields a genotypic ratio of one to two to one under simple Mendelian inheritance.
+
+Ecosystems
+Ecosystems include living organisms and their interactions with the physical environment. Producers convert light energy into chemical energy through photosynthesis. Consumers obtain energy by feeding on other organisms. Decomposers break down dead matter and recycle nutrients. Energy flows through trophic levels and is lost as heat at each transfer. Nutrients cycle through biotic and abiotic components of an ecosystem.
+
+Human circulation
+Human circulation transports oxygen, nutrients and wastes through blood vessels. The heart has four chambers: two atria and two ventricles. The right ventricle pumps blood to the lungs through the pulmonary artery. The left ventricle pumps oxygenated blood into the aorta for distribution to the body. Valves prevent the backward flow of blood. Capillaries have thin walls that allow exchange between blood and surrounding tissues.

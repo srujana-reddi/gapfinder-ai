@@ -1,0 +1,12 @@
+.env
+.venv/
+.packages/
+instance/
+__pycache__/
+*.pyc
+
+.env.*
+!.env.example
+.vercel/
+*.sqlite3*
+*.key
